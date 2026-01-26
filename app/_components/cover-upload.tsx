@@ -6,6 +6,7 @@ import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle } from '@/
 import { Button } from '@/components/ui/button';
 import { CloudUpload, ImageIcon, TriangleAlert, Upload, XIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { RiImageAddLine } from "react-icons/ri";
 
 interface CoverUploadProps {
   maxSize?: number;
@@ -20,13 +21,14 @@ export default function CoverUpload({
   className,
   onImageChange,
 }: CoverUploadProps) {
+
   // Default cover image
   const defaultCoverImage: FileMetadata = {
     id: 'default-cover',
     name: 'cover-image.jpg',
     size: 2048000,
     type: 'image/jpeg',
-    url: 'https://picsum.photos/1000/800?grayscale&random=3',
+    url: "",
   };
 
   const [coverImage, setCoverImage] = useState<FileWithPreview | null>({
@@ -112,12 +114,12 @@ export default function CoverUpload({
       {/* Cover Upload Area */}
       <div
         className={cn(
-          'group relative overflow-hidden rounded-xl transition-all duration-200 border border-border',
+          'group relative overflow-hidden rounded-xl transition-all duration-200 border border-grey-border',
           isDragging
             ? 'border-dashed border-primary bg-primary/5'
             : hasImage
               ? 'border-border bg-background hover:border-primary/50'
-              : 'border-dashed border-muted-foreground/25 bg-muted/30 hover:border-primary hover:bg-primary/5',
+              : 'border-dashed border-muted-foreground/25 bg-[#101013] hover:border-primary hover:bg-primary/5',
         )}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -130,7 +132,7 @@ export default function CoverUpload({
         {hasImage ? (
           <>
             {/* Cover Image Display */}
-            <div className="relative aspect-[21/9] w-full">
+            <div className="relative aspect-21/9 w-full">
               {/* Loading placeholder */}
               {imageLoading && (
                 <div className="absolute inset-0 animate-pulse bg-muted flex items-center justify-center">
@@ -213,24 +215,16 @@ export default function CoverUpload({
         ) : (
           /* Empty State */
           <div
-            className="flex aspect-[21/9] w-full cursor-pointer flex-col items-center justify-center gap-4 p-8 text-center"
+            className="flex aspect-21/9 w-full h-[200px]! cursor-pointer flex-col items-center justify-center gap-4 p-8 text-center"
             onClick={openFileDialog}
           >
-            <div className="rounded-full bg-primary/10 p-4">
-              <CloudUpload className="size-8 text-primary" />
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="text-lg font-semibold">Upload Cover Image</h3>
-              <p className="text-sm text-muted-foreground">Drag and drop an image here, or click to browse</p>
+             <div className='flex flex-col gap-1 items-center'>
+              <RiImageAddLine className='text-neutral-600' size={22} />
+              <p className='text-neutral-600'>Add Cover Image</p>
+              </div>
               <p className="text-xs text-muted-foreground">Recommended size: 1200x514px • Max size: 5MB</p>
             </div>
 
-            <Button variant="outline" size="sm">
-              <ImageIcon />
-              Browse Files
-            </Button>
-          </div>
         )}
       </div>
 
@@ -255,32 +249,21 @@ export default function CoverUpload({
 
       {/* Upload Error */}
       {uploadError && (
-        <Alert variant="destructive" appearance="light" className="mt-5">
+        <Alert variant="destructive" className="mt-5 bg-card-bg">
           <AlertIcon>
-            <TriangleAlert />
+            <TriangleAlert className='text-red-600' />
           </AlertIcon>
           <AlertContent>
             <AlertTitle>Upload failed</AlertTitle>
             <AlertDescription>
               <p>{uploadError}</p>
-              <Button onClick={retryUpload} variant="primary" size="sm">
+              <Button className='bg-white text-black hover:bg-white/80 hover:text-black/80' onClick={retryUpload} size="sm">
                 Retry Upload
               </Button>
             </AlertDescription>
           </AlertContent>
         </Alert>
       )}
-
-      {/* Upload Tips */}
-      <div className="rounded-lg bg-muted/50 p-4">
-        <h4 className="mb-2 text-sm font-medium">Cover Image Guidelines</h4>
-        <ul className="space-y-1 text-xs text-muted-foreground">
-          <li>• Use high-quality images with good lighting and composition</li>
-          <li>• Recommended aspect ratio: 21:9 (ultrawide) for best results</li>
-          <li>• Avoid images with important content near the edges</li>
-          <li>• Supported formats: JPG, PNG, WebP</li>
-        </ul>
-      </div>
     </div>
   );
 }

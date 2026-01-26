@@ -6,6 +6,7 @@
 @theme {
   --color-grey-border: #1C1C1F;
   --color-primary: #49BA82;
+  --color-card-bg: #18181B;
 }
 
 @layer utilities {
