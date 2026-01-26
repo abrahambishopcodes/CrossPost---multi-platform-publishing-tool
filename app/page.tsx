@@ -4,6 +4,7 @@ import { AppSidebar } from "./_components/app-sidebar";
 import CoverUpload from "@/app/_components/cover-upload";
 import { ActionsSidebar } from "./_components/actions-sidebar";
 import { Input } from "@/components/ui/input";
+import Tiptap from "./_components/tiptap";
 
 const Home = () => {
   return (
@@ -33,6 +34,7 @@ const Home = () => {
             {/*  */}
             <Input defaultValue="Write Title Here" placeholder="Blog Title" className="w-full text-white text-4xl font-semibold p-0 mt-6 border-none focus:border-none focus-visible:ring-0 py-2" />
 
+            <Tiptap />
           </main>
           <ActionsSidebar />
         </div>
