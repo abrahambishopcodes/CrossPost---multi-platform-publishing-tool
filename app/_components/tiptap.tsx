@@ -2,6 +2,7 @@
 
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import TiptapToolbar from './tiptap-toolbar'
 
 const Tiptap = () => {
   const editor = useEditor({
@@ -17,11 +18,19 @@ const Tiptap = () => {
   })
 
   return (
-    <EditorContent 
-      editor={editor} 
-      placeholder='Write content here...'
-      className='w-full mt-6 [&_.ProseMirror]:outline-none [&_.ProseMirror]:border-none [&_.ProseMirror]:focus:outline-none [&_.ProseMirror]:focus:border-none [&_.ProseMirror]:focus:ring-0 [&_.ProseMirror]:min-h-[200px] [&_.ProseMirror_p.is-editor-empty:first-child::before]:content-[attr(data-placeholder)] [&_.ProseMirror_p.is-editor-empty:first-child::before]:text-gray-400 [&_.ProseMirror_p.is-editor-empty:first-child::before]:float-left [&_.ProseMirror_p.is-editor-empty:first-child::before]:pointer-events-none [&_.ProseMirror_p.is-editor-empty:first-child::before]:h-0'
-    />
+    <div className='w-full h-full mt-6 relative'>
+      {/* Toolbar */}
+     <div className='mb-5'>
+     <TiptapToolbar editor={editor} />
+    </div>
+      
+      {/* Editor Content */}
+      <EditorContent 
+        editor={editor} 
+        placeholder='Write content here...'
+        className='w-full [\u0026_.ProseMirror]:outline-none [\u0026_.ProseMirror]:border-none [\u0026_.ProseMirror]:focus:outline-none [\u0026_.ProseMirror]:focus:border-none [\u0026_.ProseMirror]:focus:ring-0 [\u0026_.ProseMirror]:min-h-[200px] [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:content-[attr(data-placeholder)] [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:text-gray-400 [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:float-left [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:pointer-events-none [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:h-0'
+      />
+    </div>
   )
 }
 

@@ -5,6 +5,9 @@ import CoverUpload from "@/app/_components/cover-upload";
 import { ActionsSidebar } from "./_components/actions-sidebar";
 import { Input } from "@/components/ui/input";
 import Tiptap from "./_components/tiptap";
+import Link from "next/link";
+
+import { FiSettings } from "react-icons/fi";
 
 const Home = () => {
   return (
@@ -17,10 +20,16 @@ const Home = () => {
           CrossPost
         </h2>
 
-        <div>
+        <div className="flex items-center gap-2">
           <Button className="bg-white text-black hover:bg-primary hover:text-white">
             Publish Now
           </Button>
+          <Link href="/settings">
+            <FiSettings
+              className="text-neutral-400 hover:text-white cursor-pointer transition-all"
+              size={18}
+            />
+          </Link>
         </div>
       </header>
 
@@ -32,7 +41,11 @@ const Home = () => {
             <CoverUpload className="max-w-[800px]" />
 
             {/*  */}
-            <Input defaultValue="Write Title Here" placeholder="Blog Title" className="w-full text-white text-4xl font-semibold p-0 mt-6 border-none focus:border-none focus-visible:ring-0 py-2" />
+            <Input
+              defaultValue="Write Title Here"
+              placeholder="Blog Title"
+              className="max-w-full text-white text-4xl font-semibold p-0 mt-6 border-none focus:border-none focus-visible:ring-0 py-2"
+            />
 
             <Tiptap />
           </main>
