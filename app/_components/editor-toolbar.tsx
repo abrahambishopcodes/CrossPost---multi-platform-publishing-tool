@@ -7,12 +7,18 @@ import {
   CodeIcon,
   Heading,
   Image,
-  SparklesIcon
+  SparklesIcon,
+  Heading1,
+  Heading2,
+  Heading3
 } from "lucide-react";
 import { Editor } from "@tiptap/react";
 import { Toggle } from "@/components/ui/toggle";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { LucideIcon } from "lucide-react";
+
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 interface EditorToolbarProps {
   editor: Editor | null;
@@ -40,7 +46,20 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
     return null;
   }
 
-  const tools = [
+  interface Tool {
+    Icon: LucideIcon;
+    action: () => void;
+    active: () => boolean;
+    dropdown?: boolean;
+    items?: {
+      label: string;
+      Icon?: LucideIcon;
+      action: () => void;
+      active: () => boolean;
+    }[];
+  }
+
+  const tools: Tool[][] = [
     [
       {
         Icon: Bold,
@@ -61,6 +80,27 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
     [
       {
         Icon: Heading,
+        dropdown: true,
+        items: [
+          {
+            label: "Heading 1",
+            Icon: Heading1,
+            action: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
+            active: () => editor.isActive("heading", { level: 1 }),
+          },
+          {
+            label: "Heading 2",
+            Icon: Heading2,
+            action: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+            active: () => editor.isActive("heading", { level: 2 }),
+          },
+          {
+            label: "Heading 3",
+            Icon: Heading3,
+            action: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+            active: () => editor.isActive("heading", { level: 3 }),
+          },
+        ],
         action: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
         active: () => editor.isActive("heading", { level: 1 }),
       },
@@ -83,14 +123,14 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
       },
       {
         Icon: Image,
-        // action: () => editor.chain().focus().toggleImage().run(),
-        active: () => editor.isActive("image"),
+        action: () => {},
+        active: () => false,
       },
     ],
     [
       {
         Icon: SparklesIcon,
-        // action: () => editor.chain().focus().toggleSparkles().run(),
+        action: () => {},
         active: () => false,
       }
     ]
@@ -104,7 +144,34 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
           index !== tools.length - 1 && "border-r border-gray-800"
         )} key={`tool-group-${index}`}>
           {toolGroup.map((tool, index) => (
-            <Toggle
+            tool.dropdown ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Toggle
+                    pressed={tool.active()}
+                    className="h-8 w-8 p-0 hover:bg-white/20 data-[state=on]:*:text-black!"
+                  >
+                    <tool.Icon className="h-4 w-4 text-neutral-400" />
+                  </Toggle>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-[#131214] border-grey-border min-w-[150px]">
+                  {tool.items?.map((item, index) => (
+                    <DropdownMenuItem
+                      key={`tool-item-${index}`}
+                      onClick={item.action}
+                      className={cn(
+                        "flex items-center gap-2 cursor-pointer transition-colors focus:bg-white/10 focus:text-white",
+                        item.active() ? "bg-white/10 text-white" : "text-neutral-400 hover:text-white"
+                      )}
+                    >
+                      {item?.Icon && (<item.Icon className={cn("h-4 w-4", item.active() ? "text-white" : "text-neutral-400")} />)}
+                      <span className="text-sm">{item.label}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Toggle
               key={`tool-${index}`}
               pressed={tool.active()}
               onPressedChange={tool.action}
@@ -117,6 +184,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
                 )
               } />
             </Toggle>
+            )
           ))}
         </div>
       ))}

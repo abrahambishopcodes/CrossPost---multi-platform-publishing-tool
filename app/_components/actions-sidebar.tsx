@@ -16,18 +16,18 @@ const platforms = [
         name: "dev.to",
         logo: "/dev.to.png",
         connected: false,
-    },
+      },
+      {
+          name: "hashnode",
+          logo: "/hashnode.png",
+          connected: true,
+      },
     {
         name: "medium",
         logo: "/medium.png",
-        connected: true,
-    },
-
-    {
-        name: "hashnode",
-        logo: "/hashnode.png",
         connected: false,
     },
+
 ]
 
 export function ActionsSidebar() {
@@ -41,15 +41,15 @@ export function ActionsSidebar() {
             Distrubution
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <div className="flex flex-col gap-2 mt-1 p-2">
+            <div className="flex flex-col gap-4 mt-1 p-2">
             {platforms.map((platform) => (
                 <div key={platform.name} className="w-full flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <div className="w-12 h-12 overflow-hidden rounded-lg">
+                        <div className="w-10 h-10 overflow-hidden rounded-lg">
                             <img src={platform.logo} alt={platform.name} className="w-full h-full object-contain" />
                         </div>
                         <div>
-                             <p className="text-white capitalize font-semibold">{platform.name}</p>
+                             <p className="text-white text-sm font-semibold capitalize ">{platform.name}</p>
                              <p className="text-xs text-gray-400">{platform.connected ? "Connected" : "Not Connected"}</p>
                         </div>
                     </div>
