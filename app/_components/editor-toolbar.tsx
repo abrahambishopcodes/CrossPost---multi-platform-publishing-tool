@@ -10,16 +10,21 @@ import {
   SparklesIcon,
   Heading1,
   Heading2,
-  Heading3
+  Heading3,
+  LucideIcon
 } from "lucide-react";
 import { Editor } from "@tiptap/react";
 import { Toggle } from "@/components/ui/toggle";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
-
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import LinkToolbarAction from "./link-action";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { 
+  DropdownMenu, 
+  DropdownMenuTrigger, 
+  DropdownMenuContent, 
+  DropdownMenuItem 
+} from "@/components/ui/dropdown-menu";
 
 interface EditorToolbarProps {
   editor: Editor | null;
@@ -27,6 +32,7 @@ interface EditorToolbarProps {
 
 export default function EditorToolbar({ editor }: EditorToolbarProps) {
   const [_, forceUpdate] = useState({});
+  const linkInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (!editor) return;
@@ -52,6 +58,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
     action: () => void;
     active: () => boolean;
     dropdown?: boolean;
+    isLink?: boolean;
     items?: {
       label: string;
       Icon?: LucideIcon;
@@ -71,6 +78,12 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
         Icon: Italic,
         action: () => editor.chain().focus().toggleItalic().run(),
         active: () => editor.isActive("italic"),
+      },
+      {
+        Icon: Link,
+        isLink: true,
+        action: () => {}, 
+        active: () => editor.isActive("link"),
       },
     ],
     [
@@ -132,6 +145,11 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
     ]
   ];
 
+  const setLink = () => {
+    const link = linkInputRef.current?.value;
+    if (link) editor.chain().focus().extendMarkRange('link').setLink({ href: link }).run() ;
+  }
+
   return (
     <div className="bg-[#131214] w-full h-12 rounded-lg flex items-center px-4 gap-2 border border-grey-border">
       {tools.map((toolGroup, index) => (
@@ -140,7 +158,35 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
           index !== tools.length - 1 && "border-r border-gray-800"
         )} key={`tool-group-${index}`}>
           {toolGroup.map((tool, index) => (
-            tool.dropdown ? (
+            tool.isLink ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Toggle
+                    pressed={tool.active()}
+                    className="h-8 w-8 p-0 hover:bg-white/20 data-[state=on]:bg-white/10"
+                  >
+                    <tool.Icon className={cn(
+                      "h-4 w-4",
+                      tool.active() ? "text-white" : "text-neutral-400"
+                    )} />
+                  </Toggle>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-[#131214] border-grey-border p-3 min-w-[300px] flex flex-col gap-3">
+                  <Input 
+                    placeholder="Paste link"
+                    ref={linkInputRef} 
+                    className="bg-transparent border-gray-800 focus-visible:ring-0 focus-visible:border-white text-white h-8" 
+                  />
+                  <div className="flex items-center gap-2">
+                    <Button
+                    onClick={() => setLink()}
+                     className="h-7 text-xs bg-white text-black hover:bg-neutral-200 w-full">
+                      Insert
+                    </Button>
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : tool.dropdown ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Toggle
@@ -189,7 +235,6 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
           ))}
         </div>
       ))}
-      <LinkToolbarAction />
     </div>
   );
 }

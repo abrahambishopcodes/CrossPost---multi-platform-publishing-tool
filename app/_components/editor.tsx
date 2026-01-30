@@ -8,7 +8,13 @@ import CodeBlock from '@tiptap/extension-code-block'
 const Editor = () => {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        link: {
+          HTMLAttributes: {
+            class: "text-blue-600 underline cursor-pointer hover:text-blue-800"
+          }
+        }
+      }),
       CodeBlock.configure({
         HTMLAttributes: {
           class: 'bg-gray-900 p-4 rounded-lg'
