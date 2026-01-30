@@ -32,6 +32,7 @@ interface EditorToolbarProps {
 
 export default function EditorToolbar({ editor }: EditorToolbarProps) {
   const [_, forceUpdate] = useState({});
+  const [isLinkOpen, setIsLinkOpen] = useState(false);
   const linkInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -147,7 +148,11 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 
   const setLink = () => {
     const link = linkInputRef.current?.value;
-    if (link) editor.chain().focus().extendMarkRange('link').setLink({ href: link }).run() ;
+    if (link) {
+      editor.chain().focus().extendMarkRange('link').setLink({ href: link }).run();
+      if (linkInputRef.current) linkInputRef.current.value = '';
+      setIsLinkOpen(false);
+    }
   }
 
   return (
@@ -159,7 +164,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
         )} key={`tool-group-${index}`}>
           {toolGroup.map((tool, index) => (
             tool.isLink ? (
-              <DropdownMenu>
+              <DropdownMenu open={isLinkOpen} onOpenChange={setIsLinkOpen}>
                 <DropdownMenuTrigger asChild>
                   <Toggle
                     pressed={tool.active()}
