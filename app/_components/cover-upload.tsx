@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useFileUpload, type FileMetadata, type FileWithPreview } from '@/hooks/use-file-upload';
 import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { CloudUpload, ImageIcon, TriangleAlert, Upload, XIcon } from 'lucide-react';
+import { ImageIcon, TriangleAlert, Upload, XIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { RiImageAddLine } from "react-icons/ri";
 
@@ -16,7 +16,7 @@ interface CoverUploadProps {
 }
 
 export default function CoverUpload({
-  maxSize = 5 * 1024 * 1024, // 5MB default
+  maxSize = 10 * 1024 * 1024, 
   accept = 'image/*',
   className,
   onImageChange,

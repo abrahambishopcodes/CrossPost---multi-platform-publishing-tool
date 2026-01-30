@@ -8,18 +8,7 @@ import CodeBlock from '@tiptap/extension-code-block'
 const Editor = () => {
   const editor = useEditor({
     extensions: [
-      StarterKit.configure({
-        orderedList: {
-          HTMLAttributes: {
-            class: 'list-decimal ml-4'
-          }
-        },
-        bulletList: {
-          HTMLAttributes: {
-            class: 'list-disc ml-4'
-          }
-        }
-      }),
+      StarterKit,
       CodeBlock.configure({
         HTMLAttributes: {
           class: 'bg-gray-900 p-4 rounded-lg'

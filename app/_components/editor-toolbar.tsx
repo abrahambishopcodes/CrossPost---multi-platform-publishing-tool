@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import LinkToolbarAction from "./link-action";
 
 interface EditorToolbarProps {
   editor: Editor | null;
@@ -70,11 +71,6 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
         Icon: Italic,
         action: () => editor.chain().focus().toggleItalic().run(),
         active: () => editor.isActive("italic"),
-      },
-      {
-        Icon: Link,
-        action: () => editor.chain().focus().toggleLink().run(),
-        active: () => editor.isActive("link"),
       },
     ],
     [
@@ -149,9 +145,12 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
                 <DropdownMenuTrigger asChild>
                   <Toggle
                     pressed={tool.active()}
-                    className="h-8 w-8 p-0 hover:bg-white/20 data-[state=on]:*:text-black!"
+                    className="h-8 w-8 p-0 hover:bg-white/20 data-[state=on]:bg-white/10"
                   >
-                    <tool.Icon className="h-4 w-4 text-neutral-400" />
+                    <tool.Icon className={cn(
+                      "h-4 w-4",
+                      tool.active() ? "text-white" : "text-neutral-400"
+                    )} />
                   </Toggle>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-[#131214] border-grey-border min-w-[150px]">
@@ -172,22 +171,25 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
               </DropdownMenu>
             ) : (
               <Toggle
-              key={`tool-${index}`}
-              pressed={tool.active()}
-              onPressedChange={tool.action}
-              className="h-8 w-8 p-0 hover:bg-white/20 data-[state=on]:*:text-black!"
-            >
-              <tool.Icon className={
-                cn(
-                  "h-4 w-4 text-neutral-400",
-                  tool.Icon === SparklesIcon && "text-purple-500"
-                )
-              } />
-            </Toggle>
+                key={`tool-${index}`}
+                pressed={tool.active()}
+                onPressedChange={tool.action}
+                className="h-8 w-8 p-0 hover:bg-white/20 data-[state=on]:bg-white/10"
+              >
+                <tool.Icon className={
+                  cn(
+                    "h-4 w-4",
+                    tool.Icon === SparklesIcon 
+                      ? "text-purple-500" 
+                      : (tool.active() ? "text-white" : "text-neutral-400")
+                  )
+                } />
+              </Toggle>
             )
           ))}
         </div>
       ))}
+      <LinkToolbarAction />
     </div>
   );
 }
