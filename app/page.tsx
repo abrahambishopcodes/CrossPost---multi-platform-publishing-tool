@@ -4,7 +4,7 @@ import { AppSidebar } from "./_components/app-sidebar";
 import CoverUpload from "@/app/_components/cover-upload";
 import { ActionsSidebar } from "./_components/actions-sidebar";
 import { Input } from "@/components/ui/input";
-import Tiptap from "./_components/tiptap";
+import Editor from "./_components/editor";
 import Link from "next/link";
 
 import { FiSettings } from "react-icons/fi";
@@ -36,9 +36,9 @@ const Home = () => {
       <SidebarProvider>
         <div className="flex w-full">
           <AppSidebar />
-          <main className="p-4 w-full flex flex-col items-center">
+          <main className="p-4 w-full flex flex-col items-center px-14">
             {/* Upload image */}
-            <CoverUpload className="max-w-[800px]" />
+            <CoverUpload className="w-full" />
 
             {/*  */}
             <Input
@@ -47,7 +47,7 @@ const Home = () => {
               className="max-w-full text-white text-4xl font-semibold p-0 mt-6 border-none focus:border-none focus-visible:ring-0 py-2"
             />
 
-            <Tiptap />
+            <Editor />
           </main>
           <ActionsSidebar />
         </div>

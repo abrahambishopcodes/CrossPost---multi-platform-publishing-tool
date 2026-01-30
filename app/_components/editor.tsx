@@ -2,11 +2,31 @@
 
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import TiptapToolbar from './tiptap-toolbar'
+import EditorToolbar from './editor-toolbar'
+import CodeBlock from '@tiptap/extension-code-block'
 
-const Tiptap = () => {
+const Editor = () => {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit.configure({
+        orderedList: {
+          HTMLAttributes: {
+            class: 'list-decimal ml-4'
+          }
+        },
+        bulletList: {
+          HTMLAttributes: {
+            class: 'list-disc ml-4'
+          }
+        }
+      }),
+      CodeBlock.configure({
+        HTMLAttributes: {
+          class: 'bg-gray-900 p-4 rounded-lg'
+        },
+        defaultLanguage: "javascript"
+      })
+    ],
     content: '<p>Write content here! 🌎️</p>',
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
@@ -21,7 +41,7 @@ const Tiptap = () => {
     <div className='w-full h-full mt-6 relative'>
       {/* Toolbar */}
      <div className='mb-5'>
-     <TiptapToolbar editor={editor} />
+     <EditorToolbar editor={editor} />
     </div>
       
       {/* Editor Content */}
@@ -34,4 +54,4 @@ const Tiptap = () => {
   )
 }
 
-export default Tiptap
+export default Editor
