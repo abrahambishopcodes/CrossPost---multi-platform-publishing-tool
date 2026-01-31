@@ -4,6 +4,7 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import EditorToolbar from './editor-toolbar'
 import CodeBlock from '@tiptap/extension-code-block'
+import Tags from './tags'
 
 const Editor = () => {
   const editor = useEditor({
@@ -37,6 +38,10 @@ const Editor = () => {
       {/* Toolbar */}
      <div className='mb-5'>
      <EditorToolbar editor={editor} />
+    </div>
+
+    <div className="mb-5">
+      <Tags />
     </div>
       
       {/* Editor Content */}
