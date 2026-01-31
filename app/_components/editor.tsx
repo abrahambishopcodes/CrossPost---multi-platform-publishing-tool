@@ -4,6 +4,7 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import EditorToolbar from './editor-toolbar'
 import CodeBlock from '@tiptap/extension-code-block'
+import Image from '@tiptap/extension-image'
 import Tags from './tags'
 
 const Editor = () => {
@@ -21,7 +22,14 @@ const Editor = () => {
           class: 'bg-gray-900 p-4 rounded-lg'
         },
         defaultLanguage: "javascript"
-      })
+      }),
+      Image.configure({
+      inline: true,
+      allowBase64: true, // Allows dropping images directly (careful with large strings!)
+      HTMLAttributes: {
+        class: 'rounded-lg border border-gray-200 max-w-full h-auto',
+      },
+    }),
     ],
     content: '<p>Write content here! 🌎️</p>',
     // Don't render immediately on the server to avoid SSR issues

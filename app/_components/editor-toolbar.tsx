@@ -33,7 +33,10 @@ interface EditorToolbarProps {
 export default function EditorToolbar({ editor }: EditorToolbarProps) {
   const [_, forceUpdate] = useState({});
   const [isLinkOpen, setIsLinkOpen] = useState(false);
+  const [isImageOpen, setIsImageOpen] = useState(false);
   const linkInputRef = useRef<HTMLInputElement>(null)
+  const imageUrlRef = useRef<HTMLInputElement>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (!editor) return;
@@ -60,6 +63,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
     active: () => boolean;
     dropdown?: boolean;
     isLink?: boolean;
+    isImage?: boolean;
     items?: {
       label: string;
       Icon?: LucideIcon;
@@ -133,8 +137,9 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
       },
       {
         Icon: Image,
+        isImage: true,
         action: () => {},
-        active: () => false,
+        active: () => editor.isActive("image"),
       },
     ],
     [
@@ -153,6 +158,28 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
       if (linkInputRef.current) linkInputRef.current.value = '';
       setIsLinkOpen(false);
     }
+  }
+
+  const setImage = () => {
+    const url = imageUrlRef.current?.value;
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run();
+      if (imageUrlRef.current) imageUrlRef.current.value = '';
+      setIsImageOpen(false);
+    }
+  }
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      editor.chain().focus().setImage({ src: url }).run();
+      setIsImageOpen(false);
+    }
+  }
+
+  const triggerFileUpload = () => {
+    fileInputRef.current?.click();
   }
 
   return (
@@ -189,6 +216,59 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
                       Insert
                     </Button>
                   </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : tool.isImage ? (
+               <DropdownMenu open={isImageOpen} onOpenChange={setIsImageOpen}>
+                <DropdownMenuTrigger asChild>
+                  <Toggle
+                    pressed={tool.active()}
+                    className="h-8 w-8 p-0 hover:bg-white/20 data-[state=on]:bg-white/10"
+                  >
+                    <tool.Icon className={cn(
+                      "h-4 w-4",
+                      tool.active() ? "text-white" : "text-neutral-400"
+                    )} />
+                  </Toggle>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-[#131214] border-grey-border p-3 min-w-[300px] flex flex-col gap-3">
+                  <div className="flex flex-col gap-2">
+                     <p className="text-xs text-neutral-400">Add Image from URL</p>
+                     <Input 
+                      placeholder="Paste image URL"
+                      ref={imageUrlRef} 
+                      className="bg-transparent border-gray-800 focus-visible:ring-0 focus-visible:border-white text-white h-8" 
+                    />
+                    <Button
+                      onClick={() => setImage()}
+                      className="h-7 text-xs bg-white text-black hover:bg-neutral-200 w-full mb-2">
+                        Insert Image
+                    </Button>
+                  </div>
+                  
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <span className="w-full border-t border-gray-800" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-[#131214] px-2 text-neutral-500">Or upload</span>
+                    </div>
+                  </div>
+
+                  <input 
+                    type="file" 
+                    ref={fileInputRef} 
+                    className="hidden" 
+                    accept="image/*"
+                    onChange={handleFileUpload}
+                  />
+
+                  <Button
+                    onClick={triggerFileUpload}
+                    variant="ghost"
+                    className="h-7 text-xs hover:bg-white/10 text-neutral-300 hover:text-white w-full border border-gray-800">
+                      Upload from Computer
+                  </Button>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : tool.dropdown ? (
