@@ -12,7 +12,7 @@ import { FiSettings } from "react-icons/fi";
 const Home = () => {
   return (
     <section className="h-screen flex flex-col">
-      <header className="w-full min-h-16 border-b border-grey-border flex items-center justify-between px-4">
+      <header className="w-full min-h-16 border-b border-grey-border flex items-center justify-between px-4 sticky top-0 z-50 bg-background">
         <h2 className="text-lg flex items-center gap-1">
           <div className="w-8 h-8 rounded-lg bg-white text-black flex-center text-xl font-bold">
             C

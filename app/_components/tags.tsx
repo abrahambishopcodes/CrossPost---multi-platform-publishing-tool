@@ -4,7 +4,7 @@ import { Input, InputWrapper } from "@/components/ui/input";
 
 const Tags = () => {
   const [isTagInputOpen, setIsTagInputOpen] = useState(false);
-  const [tags, setTags] = useState<string[]>(["#tag1", "#tag2", "#tag3"]);
+  const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
 
   const onSubmit = (e: FormEvent) => {
@@ -24,7 +24,7 @@ const Tags = () => {
   return (
     <div>
       <div className="flex items-center gap-2 flex-wrap">
-        {tags.map((tag, index) => (
+        {tags.length > 0 ? tags.map((tag, index) => (
           <div
             className="bg-white/10 border border-grey-border p-2 min-w-18 rounded-lg justify-between text-xs flex items-center gap-1"
             key={index}
@@ -35,7 +35,7 @@ const Tags = () => {
               onClick={() => removeTag(index)}
             />
           </div>
-        ))}
+        )) : <p className="text-neutral-400 text-xs">No tags added yet, click add tag to add one</p>}
 
         {isTagInputOpen ? (
           <form onSubmit={onSubmit}>
