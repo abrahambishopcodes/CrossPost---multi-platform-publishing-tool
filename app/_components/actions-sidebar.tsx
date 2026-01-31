@@ -8,7 +8,10 @@ import {
   SidebarGroupContent,
 } from "@/components/ui/sidebar";
 
+import { Twitter } from "lucide-react";
+
 import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
 
 
 const platforms = [
@@ -56,6 +59,30 @@ export function ActionsSidebar() {
                     <Switch className="bg-primary!" defaultChecked={platform.connected} />
                 </div>
             ))}
+            </div>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        {/*  */}
+
+        {/* AI Utilities */}
+        <SidebarGroup className="">
+          <SidebarGroupLabel className="uppercase">
+            AI Utilities
+          </SidebarGroupLabel>
+          <SidebarGroupContent className="px-2">
+            <div className="w-full bg-card-bg border border-white/20 rounded-lg flex flex-col gap-4 p-4">
+                <div className="flex items-center gap-4">
+                  <Twitter className="text-blue-300" />
+                  <p className="font-semibold text-[16px]">Thread Generator</p>
+                </div>
+
+                <div>
+                  <p className="text-sm text-gray-400">Turn this article into a viral 5-tweet thread optimized for engagement</p>
+                </div>
+
+                <Button className="w-full bg-white/10 border border-white/20 cursor-pointer">
+                  Generate Thread
+                </Button>
             </div>
           </SidebarGroupContent>
         </SidebarGroup>

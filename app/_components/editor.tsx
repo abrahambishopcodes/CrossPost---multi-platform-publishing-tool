@@ -27,7 +27,7 @@ const Editor = () => {
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: 'prose prose-invert max-w-none focus:outline-none focus:border-none focus:ring-0 border-none outline-none',
+        class: 'prose prose-invert max-w-none focus:outline-none focus:border-none focus:ring-0 border-none outline-none pb-10',
       },
     },
   })
