@@ -26,7 +26,7 @@ const Tags = () => {
       <div className="flex items-center gap-2 flex-wrap">
         {tags.length > 0 ? tags.map((tag, index) => (
           <div
-            className="bg-white/10 border border-grey-border p-2 min-w-18 rounded-lg justify-between text-xs flex items-center gap-1"
+            className="bg-white/10 border border-border-subtle p-2 min-w-18 rounded-lg justify-between text-xs flex items-center gap-1"
             key={index}
           >
             {tag}

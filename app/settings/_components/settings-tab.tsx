@@ -28,8 +28,8 @@ export function SettingsTab() {
           ))}
         </TabsList>
         <TabsContent className="w-full" value="Account">
-          <Card className="bg-transparent border-grey-border">
-            <CardHeader className="pb-3 border-b border-grey-border">
+          <Card className="bg-transparent border-border-subtle">
+            <CardHeader className="pb-3 border-b border-border-subtle">
               <CardTitle className="text-white">AI Configuration</CardTitle>
               <CardDescription className="text-sm">
                 Configure your LLM providers for content generation.

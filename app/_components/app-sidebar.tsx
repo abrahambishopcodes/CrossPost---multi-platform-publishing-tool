@@ -32,16 +32,16 @@ const drafts = [
 
 export function AppSidebar() {
   return (
-    <Sidebar variant="sidebar" className="relative border-grey-border!">
+    <Sidebar variant="sidebar" className="relative border-border-subtle!">
       <SidebarHeader />
       <SidebarContent className="bg-transparent!">
         {/* Quick Capture */}
-        <SidebarGroup className="border-b border-grey-border pb-4">
+        <SidebarGroup className="border-b border-border-subtle pb-4">
           <SidebarGroupLabel className="uppercase">
             Quick Capture
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <InputWrapper className="bg-[#18181B] border-grey-border mt-1 w-full">
+            <InputWrapper className="bg-card-bg border-border-subtle mt-1 w-full">
               <Input
                 className="text-white!"
                 placeholder="Caputure an Idea..."
@@ -68,7 +68,7 @@ export function AppSidebar() {
                   <div
                     className={cn(
                       "w-full p-2 rounded-lg h-16 flex flex-col justify-center",
-                      i === 0 && "bg-[#18171A] border border-grey-border",
+                      i === 0 && "bg-[#18171A] border border-border-subtle",
                     )}
                   >
                     <h2 className="w-full truncate text-gray-200">

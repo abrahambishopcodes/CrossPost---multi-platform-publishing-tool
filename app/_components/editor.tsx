@@ -56,7 +56,7 @@ const Editor = () => {
       <EditorContent 
         editor={editor} 
         placeholder='Write content here...'
-        className='w-full [\u0026_.ProseMirror]:outline-none [\u0026_.ProseMirror]:border-none [\u0026_.ProseMirror]:focus:outline-none [\u0026_.ProseMirror]:focus:border-none [\u0026_.ProseMirror]:focus:ring-0 [\u0026_.ProseMirror]:min-h-[200px] [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:content-[attr(data-placeholder)] [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:text-gray-400 [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:float-left [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:pointer-events-none [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:h-0'
+        className='w-full [\u0026_.ProseMirror]:outline-none [\u0026_.ProseMirror]:border-none [\u0026_.ProseMirror]:focus:outline-none [\u0026_.ProseMirror]:focus:border-none [\u0026_.ProseMirror]:focus:ring-0 [\u0026_.ProseMirror]:min-h-50 [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:content-[attr(data-placeholder)] [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:text-gray-400 [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:float-left [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:pointer-events-none [\u0026_.ProseMirror_p.is-editor-empty:first-child::before]:h-0'
       />
     </div>
   )

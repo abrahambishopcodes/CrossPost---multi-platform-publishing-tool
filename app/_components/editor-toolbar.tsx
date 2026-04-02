@@ -183,11 +183,11 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
   }
 
   return (
-    <div className="bg-[#131214] w-full h-12 rounded-lg flex items-center px-4 gap-2 border border-grey-border">
+    <div className="bg-[#131214] w-full h-12 rounded-lg flex items-center px-4 gap-2 border border-border-subtle">
       {tools.map((toolGroup, index) => (
         <div className={cn(
           "flex items-center gap-1 pr-2",
-          index !== tools.length - 1 && "border-r border-gray-800"
+          index !== tools.length - 1 && "border-r border-border-subtle"
         )} key={`tool-group-${index}`}>
           {toolGroup.map((tool, index) => (
             tool.isLink ? (
@@ -203,11 +203,11 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
                     )} />
                   </Toggle>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-[#131214] border-grey-border p-3 min-w-[300px] flex flex-col gap-3">
+                <DropdownMenuContent className="bg-[#131214] border-border-subtle p-3 min-w-75 flex flex-col gap-3">
                   <Input 
                     placeholder="Paste link"
                     ref={linkInputRef} 
-                    className="bg-transparent border-gray-800 focus-visible:ring-0 focus-visible:border-white text-white h-8" 
+                    className="bg-transparent border-border-subtle focus-visible:ring-0 focus-visible:border-white text-white h-8" 
                   />
                   <div className="flex items-center gap-2">
                     <Button
@@ -231,7 +231,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
                     )} />
                   </Toggle>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-[#131214] border-grey-border p-3 min-w-[300px] flex flex-col gap-3">
+                <DropdownMenuContent className="bg-[#131214] border-border-subtle p-3 min-w-75 flex flex-col gap-3">
                   <div className="flex flex-col gap-2">
                      <p className="text-xs text-neutral-400">Add Image from URL</p>
                      <Input 
@@ -284,7 +284,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
                     )} />
                   </Toggle>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-[#131214] border-grey-border min-w-[150px]">
+                <DropdownMenuContent className="bg-[#131214] border-border-subtle min-w-37.5">
                   {tool.items?.map((item, index) => (
                     <DropdownMenuItem
                       key={`tool-item-${index}`}

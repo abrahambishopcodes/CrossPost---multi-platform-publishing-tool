@@ -8,8 +8,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-grey-border: #1C1C1F;
-  --color-primary-green: #49BA82;
+  --color-border-subtle: #1C1C1F;
+  --color-glass-subtle: #131214;
   --color-card-bg: #18181B;
   --font-poppins: "Poppins", sans-serif;
 }

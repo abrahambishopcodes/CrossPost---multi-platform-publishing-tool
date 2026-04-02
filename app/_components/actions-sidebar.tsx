@@ -35,11 +35,11 @@ const platforms = [
 
 export function ActionsSidebar() {
   return (
-    <Sidebar variant="sidebar" className="relative border-l border-r-0 border-grey-border w-[350px]">
+    <Sidebar variant="sidebar" className="relative border-l border-r-0 border-border-subtle w-87.5">
       <SidebarHeader />
       <SidebarContent className="bg-transparent!">
         {/* Quick Capture */}
-        <SidebarGroup className="border-b border-grey-border pb-4">
+        <SidebarGroup className="border-b border-border-subtle pb-4">
           <SidebarGroupLabel className="uppercase">
             Distrubution
           </SidebarGroupLabel>

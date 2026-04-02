@@ -114,7 +114,7 @@ export default function CoverUpload({
       {/* Cover Upload Area */}
       <div
         className={cn(
-          'group relative overflow-hidden rounded-xl transition-all duration-200 border border-grey-border',
+          'group relative overflow-hidden rounded-xl transition-all duration-200 border border-border-subtle',
           isDragging
             ? 'border-dashed border-primary bg-primary/5'
             : hasImage
